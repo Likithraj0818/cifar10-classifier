@@ -1,6 +1,6 @@
-# 📦 CIFAR-10 Image Classifier
+# 📦 AI Product Classification System
 
-> Upload an image, get an instant prediction across 10 object categories — powered by a CNN trained on CIFAR-10.
+> Upload an image, get an instant prediction across 10 product/object categories — powered by a CNN trained on the CIFAR-10 dataset.
 
 Built with **TensorFlow**, **Keras**, **OpenCV**, **Flask**, and **Streamlit**.
 
@@ -55,8 +55,8 @@ Predicted Class + Confidence Score
 
 ### 1. Clone the repo
 ```
-git clone https://github.com/Likithraj0818/cifar10-classifier.git
-cd cifar10-classifier
+git clone https://github.com/Likithraj0818/ai-product-classification.git
+cd ai-product-classification
 ```
 
 ### 2. Install dependencies
