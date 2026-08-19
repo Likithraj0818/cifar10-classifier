@@ -1,141 +1,102 @@
-# 🔍 AI Product Classification System
+# 📦 CIFAR-10 Image Classifier
 
-A CNN-based image classifier trained on the CIFAR-10 dataset, deployed via a **Flask REST API** with a **Streamlit UI** for live inference.
+> Upload an image, get an instant prediction across 10 object categories — powered by a CNN trained on CIFAR-10.
 
-## 🗂️ Project Structure
+Built with **TensorFlow**, **Keras**, **OpenCV**, **Flask**, and **Streamlit**.
+
+---
+
+## 📌 What This Project Does
+
+A convolutional neural network trained on the CIFAR-10 dataset (60,000 32×32 color images across 10 classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, truck). The trained model is served two ways:
+
+- A **Flask REST API** for programmatic predictions
+- A **Streamlit UI** for interactive, real-time classification from uploaded images
+
+**Example:**
+```
+Input:  upload a photo of a car
+Output: "automobile" — 96.4% confidence
+```
+
+---
+
+## 🏗️ Pipeline
 
 ```
-cifar10-classifier/
-│
-├── app.py                  # Flask REST API
-├── streamlit_app.py        # Streamlit UI
-├── requirements.txt        # Python dependencies
-├── .gitignore
-│
-├── notebooks/
-│   ├── CNN_cifar_data.ipynb                     # CNN model training (CIFAR-10)
-│   ├── Deepleraning_tensorflow_CNN_.ipynb        # TensorFlow/Keras deep learning
-│   └── Chapter_2_OpenCV_Image_Opertations.ipynb # OpenCV image preprocessing
-│
-└── README.md
+Uploaded Image
+     │
+     ▼
+OpenCV Preprocessing  ←── resize, normalize, reshape to (32, 32, 3)
+     │
+     ▼
+CNN Model (TensorFlow/Keras)
+     │
+     ▼
+Predicted Class + Confidence Score
+     │
+     ├──► Flask REST API response (JSON)
+     └──► Streamlit UI (visual result)
 ```
 
-> ⚠️ `model.h5` is not included in this repo (too large). See **Setup** below.
+---
+
+## ⚙️ Tech Stack
+
+- **TensorFlow / Keras** — CNN architecture, training, inference
+- **OpenCV** — image preprocessing (resize, normalize, color conversion)
+- **Flask** — REST API for serving predictions
+- **Streamlit** — interactive web UI for live testing
+- **NumPy** — array/tensor manipulation
 
 ---
 
-## 🧠 Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Model | CNN — TensorFlow / Keras |
-| Image Processing | OpenCV |
-| API | Flask |
-| UI | Streamlit |
-| Dataset | CIFAR-10 (10 classes, 60,000 images) |
-
----
-
-## 📦 Classes
-
-`airplane` · `automobile` · `bird` · `cat` · `deer` · `dog` · `frog` · `horse` · `ship` · `truck`
-
----
-
-## 🚀 Setup & Run
+## 🚀 How to Run
 
 ### 1. Clone the repo
-```bash
-git clone https://github.com/your-username/cifar10-classifier.git
+```
+git clone https://github.com/Likithraj0818/cifar10-classifier.git
 cd cifar10-classifier
 ```
 
 ### 2. Install dependencies
-```bash
-pip install -r requirements.txt
+```
+pip install tensorflow opencv-python flask streamlit numpy
 ```
 
-### 3. Add your trained model
-Train the model using the notebooks, then save it:
-```python
-model.save("model.h5")
+### 3. Run the Flask API
 ```
-Place `model.h5` in the project root.
-
-### 4. Start the Flask API
-```bash
 python app.py
 ```
-API runs at `http://localhost:5000`
 
-### 5. Start the Streamlit UI
-```bash
+### 4. Run the Streamlit UI
+```
 streamlit run streamlit_app.py
 ```
-UI runs at `http://localhost:8501`
 
 ---
 
-## 🔌 API Reference
+## 🔑 Key Concepts Implemented
 
-### `GET /`
-Health check.
-
-### `POST /predict`
-Upload an image and get a prediction.
-
-**Request:**
-```bash
-curl -X POST http://localhost:5000/predict \
-  -F "file=@your_image.jpg"
-```
-
-**Response:**
-```json
-{
-  "predicted_class": "cat",
-  "confidence": 87.34,
-  "all_probabilities": {
-    "airplane": 0.001,
-    "automobile": 0.002,
-    "bird": 0.012,
-    "cat": 0.8734,
-    ...
-  }
-}
-```
+- **CNN architecture** — convolutional + pooling layers for image feature extraction
+- **Image preprocessing** — OpenCV-based resizing and normalization pipeline
+- **Model serving** — both a REST API (Flask) and an interactive UI (Streamlit) for the same trained model
+- **Real-time inference** — predictions returned on the fly from uploaded images
 
 ---
 
-## 🕷️ Scraping Pipeline
+## 🧠 What I Learned
 
-Automatically scrapes Google Images for all 10 CIFAR-10 categories.
+- Building and training a CNN from scratch for multi-class image classification
+- Structuring an OpenCV preprocessing pipeline that matches training-time transformations exactly
+- Serving the same model through two different interfaces (API vs. UI) without duplicating logic
+- Trade-offs between batch inference (API) and interactive single-image inference (Streamlit)
 
-```bash
-# Scrape 50 images per class (default)
-python scraper.py
+---
 
-# Scrape 200 images per class
-python scraper.py --images 200
+## 👨‍💻 Author
 
-# Scrape only one class
-python scraper.py --class airplane
+**Nagula Likith Raj**
 
-# Clean existing dataset and re-scrape
-python scraper.py --clean --images 100
-```
-
-Output structure:
-```
-dataset/
-├── airplane/    (50 images)
-├── automobile/  (50 images)
-├── bird/        (50 images)
-├── cat/         (50 images)
-├── deer/        (50 images)
-├── dog/         (50 images)
-├── frog/        (50 images)
-├── horse/       (50 images)
-├── ship/        (50 images)
-└── truck/       (50 images)
-```
+- 🔗 [LinkedIn](https://www.linkedin.com/in/likith-raj-b53794301/)
+- 📧 nlikithraj9908@gmail.com
